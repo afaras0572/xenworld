@@ -1,0 +1,37 @@
+
+
+addons:
+  gitlabRunner:
+    enabled: true
+    values: {}
+  
+
+  gitlab:
+    enabled: true
+
+    hostnames:
+      gitlab: gitlab
+      registry: registry
+    values: 
+      upstream:
+        gitlab:
+          webservice:
+            minReplicas: 1
+            maxReplicas: 1
+            helmTests:
+              enabled: false
+          gitlab-shell:
+            minReplicas: 1
+            maxReplicas: 1
+          sidekiq:
+            minReplicas: 1
+            maxReplicas: 1
+        registry:
+          hpa:
+            minReplicas: 1
+            maxReplicas: 1
+      global:
+        appConfig:
+          object_store:
+            enabled: true
+          defaultCanCreateGroup: true

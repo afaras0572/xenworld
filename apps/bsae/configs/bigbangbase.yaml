@@ -1,0 +1,30 @@
+# Many of these are disabled by default, but for clarity turn them off explicitly
+# Notably, the following have  been disabled
+
+
+eckOperator:
+  enabled: false
+
+elasticsearchKibana:
+  enabled: false
+
+fluentbit:
+  enabled: false
+
+gatekeeper:
+  enabled: false
+
+
+kiali:
+  enabled: false
+
+
+neuvector:
+  enabled: false
+
+promtail:
+  enabled: false
+
+
+twistlock:
+  enabled: false

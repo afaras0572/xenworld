@@ -1,0 +1,22 @@
+
+
+addons:
+  harbor:
+    enabled: true
+    values:
+      upstream:
+        metrics:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+
+      istio:
+        enabled: true
+        hardened:
+          enabled: true
+          monitoring:
+            enabled: true
+      monitoring:
+        enabled: true
+      networkPolicies:
+        enabled: true

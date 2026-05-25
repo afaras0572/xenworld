@@ -1,0 +1,41 @@
+kyverno:
+  enabled: true
+
+kyvernoPolicies:
+  enabled: true
+  flux:
+    timeout: 30m
+  values:
+    waitforready:
+      enabled: false
+    policies:
+    additionalPolicies:
+      replicate-registry-secret:
+        enabled: true
+        kind: ClusterPolicy
+        annotation:
+          policies.kyverno.io/category: "registry-replication"
+          policies.kyverno.io/severity: "low"
+          policies.kyverno.io/subject: "Namespace"
+          policies.kyverno.io/description: "Replicate registry secret to all namespaces"
+        spec:
+          generateExisting: true
+          rules:
+            - name: copy-regcred
+              match:
+                any:
+                  - resources:
+                      kinds:
+                        - Namespace
+
+              generate:
+                synchronize: true
+                apiVersion: v1
+                kind: Secret
+                name: private-registry
+                namespace: "{{request.object.metadata.name}}"
+
+                clone:
+                  namespace: flux-system
+                  name: private-registry
+ 

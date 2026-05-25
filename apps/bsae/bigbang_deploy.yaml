@@ -1,0 +1,42 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: bigbang-home
+  namespace: bigbang
+spec:
+  interval: 1m0s
+  url: https://repo1.dso.mil/big-bang/bigbang.git
+  ref:
+    tag: 3.24.0
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: values
+  namespace: bigbang
+spec:
+  interval: 1m0s
+  path: "./configs/"
+  sourceRef:
+    kind: GitRepository
+    name: bigbang-home
+    namespace: bigbang
+  prune: true
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: bigbang
+  namespace: bigbang
+spec:
+  chart:
+    spec:
+      chart: chart
+      sourceRef:
+        kind: GitRepository
+        name: bigbang-home
+        namespace: bigbang
+  interval: 2m0s
+  rollback:
+    disableWait: true
