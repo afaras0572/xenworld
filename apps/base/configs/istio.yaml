@@ -74,6 +74,8 @@ istioGateway:
               IJ5HsVvBsmcxHcxyeq8ickBCbmWE/odLDxkCMQDmv9auNIdbP2fHHahv1RJ4teaH
               MUSpXca4eMzP79QyWBH/OoUGPB2Eb9P1+dozHKQ=
     upstream:
+      labels:
+        istio: ingressgateway
       service:
         annotations:
           metallb.universe.tf/address-pool: "istio-pool"
